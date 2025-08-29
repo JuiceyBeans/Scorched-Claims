@@ -42,6 +42,8 @@ public class ClaimBlock extends Block {
 
             var claim = opacAPI.getServerClaimsManager().tryToClaim(level.dimension().location(), party.getOwner().getUUID(),
                     0, pos.getX(), pos.getZ(), pos.getX(), pos.getZ(), false);
+            //todo figure out why the claim is so far away from clicked block
+            //todo figure out what the hell subconfig index means
 
             if (claim.getResultType() == ClaimResult.Type.SUCCESSFUL_CLAIM) {
                 player.displayClientMessage(
