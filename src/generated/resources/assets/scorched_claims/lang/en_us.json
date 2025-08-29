@@ -1,4 +1,5 @@
 {
+  "block.scorched_claims.claim_block": "Claim Block",
   "item.scorched_claims.test": "Test",
   "itemGroup.scorched_claims.scorched_claims_tab": "Scorched Claims"
 }
