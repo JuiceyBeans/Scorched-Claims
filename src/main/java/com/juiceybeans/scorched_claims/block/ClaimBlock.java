@@ -8,6 +8,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
@@ -40,8 +41,13 @@ public class ClaimBlock extends Block {
                 return result;
             }
 
+            var playerConfig = opacAPI.getPlayerConfigs().getLoadedConfig(player.getUUID());
+            var usedSubConfig = playerConfig.getUsedServerSubConfig();
+            int subConfigIndex = usedSubConfig.getSubIndex();
+            var chunkPos = new ChunkPos(pos);
+
             var claim = opacAPI.getServerClaimsManager().tryToClaim(level.dimension().location(), party.getOwner().getUUID(),
-                    0, pos.getX(), pos.getZ(), pos.getX(), pos.getZ(), false);
+                    subConfigIndex, chunkPos.x, chunkPos.z, chunkPos.x / 16, chunkPos.z / 16, true);
             //todo figure out why the claim is so far away from clicked block
             //todo figure out what the hell subconfig index means
 
