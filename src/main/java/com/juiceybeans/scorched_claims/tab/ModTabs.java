@@ -20,7 +20,7 @@ public class ModTabs {
 
     public static final Supplier<CreativeModeTab> SCORCHED_CLAIMS_TAB = TABS.register("scorched_claims_tab", () -> CreativeModeTab.builder()
             .title(Component.translatable("itemGroup." + Main.MOD_ID + ".scorched_claims_tab"))
-            .icon(() -> new ItemStack(ModItems.TEST.get()))
+            .icon(() -> new ItemStack(ModItems.CLAIM_TICKET.get()))
             .displayItems((params, output) -> {
                 addItems(output);
                 addBlocks(output);

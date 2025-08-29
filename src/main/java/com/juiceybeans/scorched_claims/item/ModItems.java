@@ -12,7 +12,7 @@ public class ModItems {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Main.MOD_ID);
 
 
-    public static final RegistryObject<Item> TEST = ITEMS.register("test", () -> new Item(
+    public static final RegistryObject<Item> CLAIM_TICKET = ITEMS.register("claim_ticket", () -> new Item(
             new Item.Properties().rarity(Rarity.UNCOMMON)));
 
     public static void register(IEventBus eventBus) {

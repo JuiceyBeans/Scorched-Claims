@@ -17,7 +17,7 @@ public class ModItemModelProvider extends ItemModelProvider {
 
     @Override
     protected void registerModels() {
-        simpleItem(ModItems.TEST);
+        simpleItem(ModItems.CLAIM_TICKET);
     }
 
     private ItemModelBuilder simpleItem(RegistryObject<Item> itemRegistryObject) {
