@@ -1,5 +1,8 @@
 package com.juiceybeans.scorched_claims;
 
+import com.juiceybeans.scorched_claims.core.ModBlocks;
+import com.juiceybeans.scorched_claims.item.ModItems;
+import com.juiceybeans.scorched_claims.tab.ModTabs;
 import com.mojang.logging.LogUtils;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -17,15 +20,14 @@ public class Main {
     public static final Logger LOGGER = LogUtils.getLogger();
 
     public Main() {
-        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+        IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
 
-        modEventBus.addListener(this::commonSetup);
+        ModItems.register(bus);
+        ModBlocks.register(bus);
+        ModTabs.register(bus);
 
         MinecraftForge.EVENT_BUS.register(this);
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.SPEC);
-    }
-
-    private void commonSetup(final FMLCommonSetupEvent event) {
     }
 }
