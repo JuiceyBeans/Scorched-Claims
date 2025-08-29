@@ -1,0 +1,30 @@
+modLoader = "javafml"
+loaderVersion = "${loader_version_range}"
+license = "${mod_license}"
+issueTrackerURL="https://github.com/JuiceyBeans/Scorched-Claims/issues"
+
+[[mods]]
+modId = "${mod_id}"
+version = "${mod_version}"
+displayName = "${mod_name}"
+updateJSONURL="https://api.modrinth.com/updates/scorched-claims/forge_updates.json"
+displayURL="https://github.com/JuiceyBeans/Scorched-Claims"
+logoFile="icon.png"
+credits="GregTech CEu Modern developers, meepr_dib"
+authors = "${mod_authors}"
+displayTest="MATCH_VERSION"
+description = '''${mod_description}'''
+
+[[dependencies."${mod_id}"]]
+modId = "forge"
+mandatory = true
+versionRange = "${forge_version_range}"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies."${mod_id}"]]
+modId = "minecraft"
+mandatory = true
+versionRange = "${minecraft_version_range}"
+ordering = "NONE"
+side = "BOTH"
