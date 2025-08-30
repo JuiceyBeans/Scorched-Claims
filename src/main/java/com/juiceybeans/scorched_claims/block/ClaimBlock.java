@@ -1,5 +1,6 @@
 package com.juiceybeans.scorched_claims.block;
 
+import com.juiceybeans.scorched_claims.item.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
@@ -7,13 +8,16 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Items;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
+import xaero.pac.common.claims.player.api.IPlayerChunkClaimAPI;
+import xaero.pac.common.claims.result.api.ClaimResult;
 import xaero.pac.common.server.api.OpenPACServerAPI;
+import xaero.pac.common.server.player.config.api.IPlayerConfigAPI;
 
 public class ClaimBlock extends Block {
     public ClaimBlock(Properties properties) {
@@ -23,39 +27,59 @@ public class ClaimBlock extends Block {
     @Override
     public InteractionResult use(BlockState blockState, Level level, BlockPos pos, Player player, InteractionHand hand,
                                  BlockHitResult hitResult) {
-        var itemStack = player.getMainHandItem();
-        InteractionResult result = InteractionResult.FAIL;
+        var result = InteractionResult.PASS;
 
-        if (itemStack.is(Items.GOLD_INGOT)) {
-            var opacAPI = Minecraft.getInstance().isLocalServer()
+        if (hand == InteractionHand.MAIN_HAND) {
+            ItemStack mainHandStack = player.getMainHandItem();
+            ItemStack offHandStack = player.getOffhandItem();
+            ItemStack stack;
+
+            if (mainHandStack.is(ModItems.CLAIM_TICKET.get())) {
+                stack = mainHandStack;
+            } else if (offHandStack.is(ModItems.CLAIM_TICKET.get())) {
+                stack = offHandStack;
+            } else return result;
+
+            result = useTicketAndClaim(stack, level, pos, player);
+        }
+
+        return result;
+    }
+
+    private static InteractionResult useTicketAndClaim(ItemStack itemStack, Level level, BlockPos pos, Player player) {
+        InteractionResult result = InteractionResult.FAIL;
+        Component message = Component.translatable("Something went wrong!").withStyle(ChatFormatting.RED);
+
+        if (itemStack.is(ModItems.CLAIM_TICKET.get())
+                || itemStack.is(ModItems.CLAIM_TICKET.get())) {
+            OpenPACServerAPI opacAPI = Minecraft.getInstance().isLocalServer()
                     ? OpenPACServerAPI.get(Minecraft.getInstance().getSingleplayerServer())
                     : OpenPACServerAPI.get(level.getServer());
 
-            var manager = opacAPI.getPartyManager();
-            var party = manager.getPartyByMember(player.getUUID());
-
-            if (party == null) {
-                player.displayClientMessage(
-                        Component.translatable("You are not currently in a party!").withStyle(ChatFormatting.RED),
-                        true);
-                return result;
-            }
-
-            var playerConfig = opacAPI.getPlayerConfigs().getLoadedConfig(player.getUUID());
-            var usedSubConfig = playerConfig.getUsedServerSubConfig();
+            IPlayerConfigAPI playerConfig = opacAPI.getPlayerConfigs().getLoadedConfig(player.getUUID());
+            IPlayerConfigAPI usedSubConfig = playerConfig.getUsedServerSubConfig();
             int subConfigIndex = usedSubConfig.getSubIndex();
-            var chunkPos = new ChunkPos(pos);
 
-            var claim = opacAPI.getServerClaimsManager().tryToClaim(level.dimension().location(), party.getOwner().getUUID(),
-                    subConfigIndex, chunkPos.x, chunkPos.z, chunkPos.x, chunkPos.z, true);
-            //todo figure out why the claim is so far away from clicked block
-            //todo figure out what the hell subconfig index means
+            ChunkPos chunkPos = new ChunkPos(pos);
+
+            ClaimResult<IPlayerChunkClaimAPI> claim = opacAPI.getServerClaimsManager().tryToClaim(
+                    level.dimension().location(),
+                    player.getUUID(),
+                    subConfigIndex, //todo figure out what the hell subconfig index means
+                    chunkPos.x, chunkPos.z,
+                    chunkPos.x, chunkPos.z,
+                    true);
 
             if (claim.getResultType().success) {
                 itemStack.shrink(1);
                 result = InteractionResult.SUCCESS;
             }
-            player.displayClientMessage(claim.getResultType().message, false);
+
+            message = claim.getResultType().message;
+        }
+
+        if (level.isClientSide) {
+            player.displayClientMessage(message, true);
         }
 
         return result;
