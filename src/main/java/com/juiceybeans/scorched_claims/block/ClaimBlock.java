@@ -47,7 +47,7 @@ public class ClaimBlock extends Block {
             var chunkPos = new ChunkPos(pos);
 
             var claim = opacAPI.getServerClaimsManager().tryToClaim(level.dimension().location(), party.getOwner().getUUID(),
-                    subConfigIndex, chunkPos.x, chunkPos.z, chunkPos.x / 16, chunkPos.z / 16, true);
+                    subConfigIndex, chunkPos.x, chunkPos.z, chunkPos.x, chunkPos.z, true);
             //todo figure out why the claim is so far away from clicked block
             //todo figure out what the hell subconfig index means
 
