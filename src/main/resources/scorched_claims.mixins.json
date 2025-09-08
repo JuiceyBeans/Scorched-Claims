@@ -1,10 +1,11 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "com.juiceybeans.scorched_claims.mixin",
-  "compatibilityLevel": "JAVA_8",
-  "refmap": "scorched_claims.refmap.json",
+  "package": "com.juiceybeans.scorched_claims.core.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "refmap": "mixins.scorched_claims.refmap.json",
   "mixins": [
+    "DummyMixin"
   ],
   "client": [
   ],

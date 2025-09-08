@@ -1,6 +1,7 @@
 package com.juiceybeans.scorched_claims.data.datagen;
 
 import com.juiceybeans.scorched_claims.Main;
+
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
@@ -21,10 +22,8 @@ public class ModDatagen {
         ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
         CompletableFuture<HolderLookup.Provider> lookupProvider = event.getLookupProvider();
 
-
         generator.addProvider(event.includeClient(), new ModBlockStateProvider(packOutput, existingFileHelper));
         generator.addProvider(event.includeClient(), new ModItemModelProvider(packOutput, existingFileHelper));
-        generator.addProvider(event.includeClient(), new ModLangProvider(packOutput, "en_us") {
-        });
+        generator.addProvider(event.includeClient(), new ModLangProvider(packOutput, "en_us") {});
     }
 }
