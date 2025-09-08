@@ -1,6 +1,12 @@
 package com.juiceybeans.scorched_claims.block;
 
 import com.juiceybeans.scorched_claims.item.ModItems;
+
+import xaero.pac.common.claims.player.api.IPlayerChunkClaimAPI;
+import xaero.pac.common.claims.result.api.ClaimResult;
+import xaero.pac.common.server.api.OpenPACServerAPI;
+import xaero.pac.common.server.player.config.api.IPlayerConfigAPI;
+
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
@@ -14,12 +20,9 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
-import xaero.pac.common.claims.player.api.IPlayerChunkClaimAPI;
-import xaero.pac.common.claims.result.api.ClaimResult;
-import xaero.pac.common.server.api.OpenPACServerAPI;
-import xaero.pac.common.server.player.config.api.IPlayerConfigAPI;
 
 public class ClaimBlock extends Block {
+
     public ClaimBlock(Properties properties) {
         super(properties);
     }
@@ -50,11 +53,10 @@ public class ClaimBlock extends Block {
         InteractionResult result = InteractionResult.FAIL;
         Component message = Component.translatable("Something went wrong!").withStyle(ChatFormatting.RED);
 
-        if (itemStack.is(ModItems.CLAIM_TICKET.get())
-                || itemStack.is(ModItems.CLAIM_TICKET.get())) {
-            OpenPACServerAPI opacAPI = Minecraft.getInstance().isLocalServer()
-                    ? OpenPACServerAPI.get(Minecraft.getInstance().getSingleplayerServer())
-                    : OpenPACServerAPI.get(level.getServer());
+        if (itemStack.is(ModItems.CLAIM_TICKET.get()) || itemStack.is(ModItems.CLAIM_TICKET.get())) {
+            OpenPACServerAPI opacAPI = Minecraft.getInstance().isLocalServer() ?
+                    OpenPACServerAPI.get(Minecraft.getInstance().getSingleplayerServer()) :
+                    OpenPACServerAPI.get(level.getServer());
 
             IPlayerConfigAPI playerConfig = opacAPI.getPlayerConfigs().getLoadedConfig(player.getUUID());
             IPlayerConfigAPI usedSubConfig = playerConfig.getUsedServerSubConfig();
@@ -65,7 +67,7 @@ public class ClaimBlock extends Block {
             ClaimResult<IPlayerChunkClaimAPI> claim = opacAPI.getServerClaimsManager().tryToClaim(
                     level.dimension().location(),
                     player.getUUID(),
-                    subConfigIndex, //todo figure out what the hell subconfig index means
+                    subConfigIndex, // todo figure out what the hell subconfig index means
                     chunkPos.x, chunkPos.z,
                     chunkPos.x, chunkPos.z,
                     true);

@@ -2,11 +2,13 @@ package com.juiceybeans.scorched_claims.data.datagen;
 
 import com.juiceybeans.scorched_claims.Main;
 import com.juiceybeans.scorched_claims.item.ModItems;
+
+import org.apache.commons.lang3.StringUtils;
+
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.common.data.LanguageProvider;
 import net.minecraftforge.registries.RegistryObject;
-import org.apache.commons.lang3.StringUtils;
 
 import java.util.Arrays;
 import java.util.Locale;
