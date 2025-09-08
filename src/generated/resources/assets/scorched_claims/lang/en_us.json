@@ -1,5 +1,10 @@
 {
   "block.scorched_claims.claim_block": "Claim Block",
+  "chat.scorched_claims.debug_cat.check_power": "[DEBUG] Power of chunk %s is %s",
+  "chat.scorched_claims.debug_cat.decrease_power": "[DEBUG] Decreased power of chunk %s by 10",
+  "chat.scorched_claims.debug_cat.increase_power": "[DEBUG] Increased power of chunk %s by 10",
+  "chat.scorched_claims.debug_cat.switch": "[DEBUG] Mode: %s",
   "item.scorched_claims.claim_ticket": "Claim Ticket",
+  "item.scorched_claims.debug_cat": "Debug Cat",
   "itemGroup.scorched_claims.scorched_claims_tab": "Scorched Claims"
 }

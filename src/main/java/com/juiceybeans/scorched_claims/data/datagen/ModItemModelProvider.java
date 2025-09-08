@@ -20,6 +20,7 @@ public class ModItemModelProvider extends ItemModelProvider {
     @Override
     protected void registerModels() {
         simpleItem(ModItems.CLAIM_TICKET);
+        simpleItem(ModItems.DEBUG_CAT);
     }
 
     private ItemModelBuilder simpleItem(RegistryObject<Item> itemRegistryObject) {
