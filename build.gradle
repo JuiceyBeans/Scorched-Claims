@@ -81,6 +81,12 @@ legacyForge {
                     .getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath())
         }
     }
+
+    mods {
+        "${mod_id}" {
+            sourceSet(sourceSets.main)
+        }
+    }
 }
 
 mixin {
