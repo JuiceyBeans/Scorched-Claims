@@ -1,10 +1,14 @@
 package com.juiceybeans.scorched_claims;
 
 import com.juiceybeans.scorched_claims.core.ModBlocks;
+import com.juiceybeans.scorched_claims.core.capability.ModCapabilities;
+import com.juiceybeans.scorched_claims.core.event.ChunkEvents;
 import com.juiceybeans.scorched_claims.item.ModItems;
 import com.juiceybeans.scorched_claims.tab.ModTabs;
 
 import com.mojang.logging.LogUtils;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import org.slf4j.Logger;
 
 import net.minecraftforge.common.MinecraftForge;
@@ -21,6 +25,10 @@ public class Main {
     public static final String MOD_ID = "scorched_claims";
     public static final Logger LOGGER = LogUtils.getLogger();
 
+    public static ResourceLocation id(String path) {
+        return new ResourceLocation(MOD_ID, path);
+    }
+
     public Main() {
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
 
@@ -28,8 +36,15 @@ public class Main {
         ModBlocks.register(bus);
         ModTabs.register(bus);
 
+        bus.addListener(this::commonSetup);
+
         MinecraftForge.EVENT_BUS.register(this);
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.SPEC);
+    }
+
+    private void commonSetup(final FMLCommonSetupEvent event) {
+        MinecraftForge.EVENT_BUS.register(ModCapabilities.class);
+        MinecraftForge.EVENT_BUS.register(ChunkEvents.class);
     }
 }
