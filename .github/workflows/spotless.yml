@@ -28,7 +28,7 @@ jobs:
           filters: |
             code:
               - 'src/main/java/**'
-      - run: git fetch origin main
+      - run: git fetch origin
         if: steps.filter.outputs.code == 'true'
       - name: Setup Build
         if: steps.filter.outputs.code == 'true'
