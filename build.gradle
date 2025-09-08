@@ -11,12 +11,21 @@ buildscript {
 plugins {
     id 'eclipse'
     id 'idea'
-    id 'net.minecraftforge.gradle' version '[6.0.16,6.2)'
-    id 'org.parchmentmc.librarian.forgegradle' version '1.+'
+    id 'net.neoforged.moddev.legacyforge' version '2.0.91'
     id 'io.freefair.lombok' version '8.14'
 }
 
-apply plugin: 'org.spongepowered.mixin'
+sourceSets {
+    main.resources {
+        srcDir 'src/generated/resources'
+    }
+}
+
+jar {
+    manifest.attributes([
+            "MixinConfigs": "scorched_claims.mixins.json"
+    ])
+}
 
 group = mod_group_id
 version = mod_version
@@ -29,55 +38,55 @@ java {
     toolchain.languageVersion = JavaLanguageVersion.of(17)
 }
 
-minecraft {
-    mappings channel: mapping_channel, version: mapping_version
-
-    copyIdeResources = true
+legacyForge {
+    version = project.minecraft_version + '-' + project.forge_version
+    parchment {
+        mappingsVersion = project.mapping_version
+        minecraftVersion = project.minecraft_version
+    }
 
     runs {
         configureEach {
-            workingDirectory project.file('run')
+            // Recommended logging data for a userdev environment
+            // The markers can be added/remove as needed separated by commas.
+            // "SCAN": For mods scan.
+            // "REGISTRIES": For firing of registry events.
+            // "REGISTRYDUMP": For getting the contents of all registries.
+            systemProperty 'forge.logging.markers', 'REGISTRIES'
 
-            property 'forge.logging.markers', 'REGISTRIES'
-
-
-            property 'forge.logging.console.level', 'debug'
-
-            mods {
-                "${mod_id}" {
-                    source sourceSets.main
-                }
-            }
+            // Recommended logging level for the console
+            // You can set various levels here.
+            // Please read: https://stackoverflow.com/questions/2031163/when-to-use-the-different-log-levels
+            logLevel = org.slf4j.event.Level.DEBUG
         }
-
         client {
-            property 'forge.enabledGameTestNamespaces', mod_id
+            client()
+            sourceSet = sourceSets.main
+            programArguments.addAll('--refresh-dependencies')
+            systemProperty('forge.enabledGameTestNamespaces', project.mod_id)
         }
 
         server {
-            property 'forge.enabledGameTestNamespaces', mod_id
-            args '--nogui'
-        }
-
-        gameTestServer {
-            property 'forge.enabledGameTestNamespaces', mod_id
+            server()
+            sourceSet = sourceSets.main
+            systemProperty('forge.enabledGameTestNamespaces', project.mod_id)
+            programArguments.addAll('--nogui', '--world', 'world-extra')
         }
 
         data {
-            workingDirectory project.file('run-data')
-
-            args '--mod', mod_id, '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
+            data()
+            sourceSet = sourceSets.main
+            programArguments.addAll('--mod', project.mod_id, '--all', '--output', file('src/generated/resources/')
+                    .getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath())
         }
     }
 }
 
 mixin {
-    add sourceSets.main, "${mod_id}.refmap.json"
+    add sourceSets.main, "mixins.${mod_id}.refmap.json"
 
     config "${mod_id}.mixins.json"
 }
-
-sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 repositories {
     maven { // CurseForge
@@ -95,16 +104,26 @@ repositories {
     mavenLocal()
 }
 
+//mods {
+//    // define mod <-> source bindings
+//    // these are used to tell the game which sources are for which mod
+//    // mostly optional in a single mod project
+//    // but multi mod projects should define one per mod
+//    "${mod_id}" {
+//        sourceSet(sourceSets.main)
+//    }
+//}
+
 dependencies {
-    minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
+    compileOnly("org.jetbrains:annotations:26.0.1")
 
-    implementation fg.deobf("curse.maven:open-parties-and-claims-636608:${opac_version}")
-    implementation fg.deobf("curse.maven:xaeros-minimap-263420:${xaero_minimap_version}")
-    implementation fg.deobf("curse.maven:xaeros-world-map-317780:${xaero_world_map_version}")
+    modImplementation("curse.maven:open-parties-and-claims-636608:${opac_version}")
+    modImplementation("curse.maven:xaeros-minimap-263420:${xaero_minimap_version}")
+    modImplementation("curse.maven:xaeros-world-map-317780:${xaero_world_map_version}")
 
-    runtimeOnly fg.deobf("dev.emi:emi-forge:${emi_version}+${minecraft_version}")
-    runtimeOnly fg.deobf("maven.modrinth:jade:${jade_version}+forge")
-    runtimeOnly fg.deobf("squeek.appleskin:appleskin-forge:mc${minecraft_version}-${appleskin_version}")
+    modRuntimeOnly("dev.emi:emi-forge:${emi_version}+${minecraft_version}")
+    modRuntimeOnly("maven.modrinth:jade:${jade_version}+forge")
+    modRuntimeOnly("squeek.appleskin:appleskin-forge:mc${minecraft_version}-${appleskin_version}")
 
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 
@@ -140,4 +159,6 @@ tasks.named('jar', Jar).configure {
 
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'
+    options.release.set(17)
+    options.compilerArgs << "-Aquiet=true" // Suppress mixin notes
 }
