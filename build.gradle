@@ -13,6 +13,7 @@ plugins {
     id 'idea'
     id 'net.neoforged.moddev.legacyforge' version '2.0.91'
     id 'io.freefair.lombok' version '8.14'
+    id 'com.diffplug.spotless' version '7.0.2'
 }
 
 sourceSets {
@@ -113,6 +114,8 @@ repositories {
 //        sourceSet(sourceSets.main)
 //    }
 //}
+
+apply from: "$rootDir/gradle/scripts/spotless.gradle"
 
 dependencies {
     compileOnly("org.jetbrains:annotations:26.0.1")
