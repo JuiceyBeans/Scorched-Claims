@@ -15,7 +15,7 @@ public class ChunkPowerImpl implements IChunkPower {
 
     @Override
     public void increaseChunkPower(int amount) {
-        this.power += power;
+        this.power += amount;
     }
 
     @Override
