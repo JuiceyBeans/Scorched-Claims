@@ -1,4 +1,4 @@
-package com.juiceybeans.scorched_claims.item;
+package com.juiceybeans.scorched_claims.core.item;
 
 import com.juiceybeans.scorched_claims.Main;
 

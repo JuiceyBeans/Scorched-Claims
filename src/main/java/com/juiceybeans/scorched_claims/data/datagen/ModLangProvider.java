@@ -1,7 +1,7 @@
 package com.juiceybeans.scorched_claims.data.datagen;
 
 import com.juiceybeans.scorched_claims.Main;
-import com.juiceybeans.scorched_claims.item.ModItems;
+import com.juiceybeans.scorched_claims.core.item.ModItems;
 
 import org.apache.commons.lang3.StringUtils;
 

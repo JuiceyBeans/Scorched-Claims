@@ -1,10 +1,10 @@
 package com.juiceybeans.scorched_claims;
 
 import com.juiceybeans.scorched_claims.core.ModBlocks;
-import com.juiceybeans.scorched_claims.core.capability.ModCapabilities;
+import com.juiceybeans.scorched_claims.api.capability.ModCapabilities;
 import com.juiceybeans.scorched_claims.core.event.ChunkEvents;
-import com.juiceybeans.scorched_claims.item.ModItems;
-import com.juiceybeans.scorched_claims.tab.ModTabs;
+import com.juiceybeans.scorched_claims.core.item.ModItems;
+import com.juiceybeans.scorched_claims.core.tab.ModTabs;
 
 import com.mojang.logging.LogUtils;
 import net.minecraft.resources.ResourceLocation;

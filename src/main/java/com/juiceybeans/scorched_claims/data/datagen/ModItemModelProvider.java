@@ -1,7 +1,7 @@
 package com.juiceybeans.scorched_claims.data.datagen;
 
 import com.juiceybeans.scorched_claims.Main;
-import com.juiceybeans.scorched_claims.item.ModItems;
+import com.juiceybeans.scorched_claims.core.item.ModItems;
 
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;

@@ -1,6 +1,6 @@
-package com.juiceybeans.scorched_claims.block;
+package com.juiceybeans.scorched_claims.core.block;
 
-import com.juiceybeans.scorched_claims.item.ModItems;
+import com.juiceybeans.scorched_claims.core.item.ModItems;
 
 import xaero.pac.common.claims.player.api.IPlayerChunkClaimAPI;
 import xaero.pac.common.claims.result.api.ClaimResult;

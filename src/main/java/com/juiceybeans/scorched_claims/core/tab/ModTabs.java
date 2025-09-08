@@ -1,8 +1,8 @@
-package com.juiceybeans.scorched_claims.tab;
+package com.juiceybeans.scorched_claims.core.tab;
 
 import com.juiceybeans.scorched_claims.Main;
 import com.juiceybeans.scorched_claims.core.ModBlocks;
-import com.juiceybeans.scorched_claims.item.ModItems;
+import com.juiceybeans.scorched_claims.core.item.ModItems;
 
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;

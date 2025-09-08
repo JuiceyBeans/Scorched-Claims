@@ -1,4 +1,4 @@
-package com.juiceybeans.scorched_claims.core.capability;
+package com.juiceybeans.scorched_claims.api.capability;
 
 import com.juiceybeans.scorched_claims.Main;
 import com.juiceybeans.scorched_claims.api.IChunkPower;
@@ -11,7 +11,6 @@ import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 public class ModCapabilities {
-    public static final Capability<IChunkPower> INSTANCE = CapabilityManager.get(new CapabilityToken<>() {});
 
     @SubscribeEvent
     public static void registerCapabilities(RegisterCapabilitiesEvent event) {
@@ -20,7 +19,7 @@ public class ModCapabilities {
 
     @SubscribeEvent
     public static void attachCapabilities(AttachCapabilitiesEvent<LevelChunk> event) {
-        event.addCapability(ChunkPowerAttacher.ChunkPowerProvider.IDENTIFIER, new ChunkPowerAttacher.ChunkPowerProvider());
-        Main.LOGGER.debug("Attached capability to chunk {}", event.getObject());
+        event.addCapability(ChunkPowerProvider.IDENTIFIER, new ChunkPowerProvider());
+        Main.LOGGER.debug("Attached capability to chunk {}", event.getObject().getPos());
     }
 }

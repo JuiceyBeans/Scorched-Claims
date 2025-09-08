@@ -1,7 +1,8 @@
 package com.juiceybeans.scorched_claims.core.util;
 
 import com.juiceybeans.scorched_claims.api.IChunkPower;
-import com.juiceybeans.scorched_claims.core.capability.ModCapabilities;
+import com.juiceybeans.scorched_claims.api.capability.ModCapabilities;
+import com.juiceybeans.scorched_claims.core.impl.ChunkPowerImpl;
 import net.minecraft.world.level.chunk.LevelChunk;
 import net.minecraftforge.common.util.LazyOptional;
 
@@ -12,7 +13,7 @@ public class ChunkPowerUtils {
      * @return Chunk power capability
      */
     public static LazyOptional<IChunkPower> getChunkPowerCapability(LevelChunk chunk) {
-        return chunk.getCapability(ModCapabilities.INSTANCE);
+        return chunk.getCapability(ChunkPowerImpl.INSTANCE);
     }
 
     public static int getChunkPower(LevelChunk chunk) {
