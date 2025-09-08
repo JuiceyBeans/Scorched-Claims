@@ -63,8 +63,8 @@ public class DebugCatItem extends Item {
                 };
 
 
-                    player.displayClientMessage(Component.translatable("chat.scorched_claims.debug_cat.switch", mode)
-                                    .withStyle(ChatFormatting.GRAY),
+                    player.displayClientMessage(Component.translatable("chat.scorched_claims.debug_cat.switch", true)
+                                    .withStyle(ChatFormatting.GREEN),
                             false);
             }
         }
