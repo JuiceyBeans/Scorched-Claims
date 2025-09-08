@@ -44,7 +44,5 @@ public class Main {
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
-        MinecraftForge.EVENT_BUS.register(ModCapabilities.class);
-        MinecraftForge.EVENT_BUS.register(ChunkEvents.class);
     }
 }

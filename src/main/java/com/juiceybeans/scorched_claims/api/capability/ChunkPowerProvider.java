@@ -21,7 +21,7 @@ public class ChunkPowerProvider implements ICapabilitySerializable<CompoundTag> 
 
     @Override
     public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction direction) {
-        return ChunkPowerImpl.INSTANCE.orEmpty(cap, optionalData);
+        return ModCapabilities.CHUNK_POWER_CAPABILITY.orEmpty(cap, optionalData);
     }
 
     void invalidate() {

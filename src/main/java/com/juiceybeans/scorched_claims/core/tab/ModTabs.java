@@ -1,7 +1,7 @@
 package com.juiceybeans.scorched_claims.core.tab;
 
 import com.juiceybeans.scorched_claims.Main;
-import com.juiceybeans.scorched_claims.core.ModBlocks;
+import com.juiceybeans.scorched_claims.core.block.ModBlocks;
 import com.juiceybeans.scorched_claims.core.item.ModItems;
 
 import net.minecraft.core.registries.Registries;
