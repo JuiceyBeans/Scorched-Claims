@@ -1,7 +1,7 @@
 package com.juiceybeans.scorched_claims.data.datagen;
 
 import com.juiceybeans.scorched_claims.Main;
-import com.juiceybeans.scorched_claims.core.ModBlocks;
+import com.juiceybeans.scorched_claims.core.block.ModBlocks;
 
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.level.block.Block;

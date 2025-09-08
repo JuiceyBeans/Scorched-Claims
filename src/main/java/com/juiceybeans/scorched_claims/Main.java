@@ -1,6 +1,6 @@
 package com.juiceybeans.scorched_claims;
 
-import com.juiceybeans.scorched_claims.core.ModBlocks;
+import com.juiceybeans.scorched_claims.core.block.ModBlocks;
 import com.juiceybeans.scorched_claims.api.capability.ModCapabilities;
 import com.juiceybeans.scorched_claims.core.event.ChunkEvents;
 import com.juiceybeans.scorched_claims.core.item.ModItems;
