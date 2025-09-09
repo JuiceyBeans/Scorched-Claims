@@ -1,6 +1,6 @@
 package com.juiceybeans.scorched_claims.core.item;
 
-import com.juiceybeans.scorched_claims.core.util.ChunkPowerUtils;
+import com.juiceybeans.scorched_claims.core.util.ClaimPowerUtils;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -29,21 +29,21 @@ public class DebugCatItem extends Item {
 
             var message = Component.translatable(
                     "chat.scorched_claims.debug_cat.check_power",
-                    chunk.getPos(), ChunkPowerUtils.getChunkPower(chunk));
+                    chunk.getPos(), ClaimPowerUtils.getClaimPower(chunk));
 
             if (!player.isCrouching()) {
                 message = switch (index) {
                     case 0 -> Component.translatable("chat.scorched_claims.debug_cat.check_power",
-                            chunk.getPos(), ChunkPowerUtils.getChunkPower(chunk));
+                            chunk.getPos(), ClaimPowerUtils.getClaimPower(chunk));
                     case 1 -> {
-                        ChunkPowerUtils.increaseChunkPower(chunk, 10);
+                        ClaimPowerUtils.increaseClaimPower(chunk, 10);
                         yield Component.translatable("chat.scorched_claims.debug_cat.increase_power",
-                                chunk.getPos(), ChunkPowerUtils.getChunkPower(chunk));
+                                chunk.getPos(), ClaimPowerUtils.getClaimPower(chunk));
                     }
                     case 2 -> {
-                        ChunkPowerUtils.decreaseChunkPower(chunk, 10);
+                        ClaimPowerUtils.decreaseClaimPower(chunk, 10);
                         yield Component.translatable("chat.scorched_claims.debug_cat.decrease_power",
-                                chunk.getPos(), ChunkPowerUtils.getChunkPower(chunk));
+                                chunk.getPos(), ClaimPowerUtils.getClaimPower(chunk));
                     }
                     default -> message;
                 };

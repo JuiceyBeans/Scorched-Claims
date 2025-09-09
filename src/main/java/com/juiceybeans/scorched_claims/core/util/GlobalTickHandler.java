@@ -7,7 +7,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 public class GlobalTickHandler {
 
     private static long lastUpdateTime = 0;
-    private static final long CHUNK_HEAL_INTERVAL = SCConfig.INSTANCE.passiveHeal.chunkPassiveHealTime * 20L;
+    private static final long CHUNK_HEAL_INTERVAL = SCConfig.INSTANCE.passiveHeal.claimPassiveHealTime * 20L;
 
     @SubscribeEvent
     public static void onServerTick(TickEvent.ServerTickEvent event) {
@@ -16,7 +16,7 @@ public class GlobalTickHandler {
         long currentTime = event.getServer().getTickCount();
         if (currentTime - lastUpdateTime >= CHUNK_HEAL_INTERVAL) {
             lastUpdateTime = currentTime;
-            ChunkPowerUtils.healChunksAroundPlayers(event.getServer());
+            ClaimPowerUtils.healClaimsAroundPlayers(event.getServer());
         }
     }
 }

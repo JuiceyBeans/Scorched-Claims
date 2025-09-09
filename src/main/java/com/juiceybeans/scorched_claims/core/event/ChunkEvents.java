@@ -1,6 +1,6 @@
 package com.juiceybeans.scorched_claims.core.event;
 
-import com.juiceybeans.scorched_claims.core.util.ChunkPowerUtils;
+import com.juiceybeans.scorched_claims.core.util.ClaimPowerUtils;
 import com.juiceybeans.scorched_claims.core.util.OPACUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -36,12 +36,12 @@ public class ChunkEvents {
         if (chunkOwner == null || level.getServer().getPlayerList().getPlayer(chunkOwner) == null) return;
 
         LevelChunk chunk = level.getChunkAt(pos);
-        int power = ChunkPowerUtils.getChunkPower(chunk);
+        int power = ClaimPowerUtils.getClaimPower(chunk);
         Entity exploder = event.getExplosion().getExploder();
         int reduceBy = exploder instanceof PrimedTnt ? 100 : 50;
 
         if (power > 0) {
-            ChunkPowerUtils.decreaseChunkPower(chunk, reduceBy);
+            ClaimPowerUtils.decreaseClaimPower(chunk, reduceBy);
         } else {
             level.playSound(null, pos, SoundEvents.WITHER_DEATH, SoundSource.BLOCKS, 1.0f, 1.0f);
             level.getServer().sendSystemMessage(Component.translatable("chat.scorched_claims.claim_destroyed")

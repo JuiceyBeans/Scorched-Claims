@@ -26,18 +26,18 @@ public final class SCConfig {
         @Configurable
         @Configurable.Synchronized
         @Configurable.DecimalRange(min = 0)
-        @Configurable.Comment(value = "Time taken for a chunk to passively heal power (in seconds)", localize = true)
-        public int chunkPassiveHealTime = 120;
+        @Configurable.Comment(value = "Time taken for a claim to passively heal power (in seconds)", localize = true)
+        public int claimPassiveHealTime = 120;
 
         @Configurable
         @Configurable.Synchronized
-        @Configurable.Comment(value = "Amount of power healed passively by a chunk. Can be negative to passively damage the chunk", localize = true)
-        public int chunkPassiveHealRate = 20;
+        @Configurable.Comment(value = "Amount of power healed passively by a chunk. Can be negative to passively damage the claim", localize = true)
+        public int claimPassiveHealRate = 20;
 
         @Configurable
         @Configurable.Synchronized
         @Configurable.DecimalRange(min = 0)
-        @Configurable.Comment(value = "Maximum power upto which a chunk can heal passively", localize = true)
-        public int chunkPassiveHealCap = 1000;
+        @Configurable.Comment(value = "Maximum power upto which a claim can heal passively", localize = true)
+        public int claimPassiveHealCap = 1000;
     }
 }

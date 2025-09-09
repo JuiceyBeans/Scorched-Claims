@@ -1,7 +1,7 @@
 package com.juiceybeans.scorched_claims.core.util;
 
 import com.juiceybeans.scorched_claims.SCConfig;
-import com.juiceybeans.scorched_claims.api.IChunkPower;
+import com.juiceybeans.scorched_claims.api.IClaimPower;
 import com.juiceybeans.scorched_claims.api.capability.ModCapabilities;
 
 import net.minecraft.server.MinecraftServer;
@@ -10,39 +10,39 @@ import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.chunk.LevelChunk;
 import net.minecraftforge.common.util.LazyOptional;
 
-public class ChunkPowerUtils {
+public class ClaimPowerUtils {
 
     /**
      * Returns the capability, NOT the power level. Use getPower for that
      * 
      * @param chunk The chunk
-     * @return Chunk power capability
+     * @return Claim power capability
      */
-    public static LazyOptional<IChunkPower> getChunkPowerCapability(LevelChunk chunk) {
-        return chunk.getCapability(ModCapabilities.CHUNK_POWER_CAPABILITY);
+    public static LazyOptional<IClaimPower> getClaimPowerCapability(LevelChunk chunk) {
+        return chunk.getCapability(ModCapabilities.CLAIM_POWER_CAPABILITY);
     }
 
-    public static int getChunkPower(LevelChunk chunk) {
-        return getChunkPowerCapability(chunk).map(IChunkPower::getChunkPower).orElse(0);
+    public static int getClaimPower(LevelChunk chunk) {
+        return getClaimPowerCapability(chunk).map(IClaimPower::getClaimPower).orElse(0);
     }
 
-    public static void setChunkPower(LevelChunk chunk, int power) {
-        getChunkPowerCapability(chunk).ifPresent(cap -> cap.setChunkPower(power));
+    public static void setClaimPower(LevelChunk chunk, int power) {
+        getClaimPowerCapability(chunk).ifPresent(cap -> cap.setClaimPower(power));
     }
 
-    public static void increaseChunkPower(LevelChunk chunk, int amount) {
-        getChunkPowerCapability(chunk).ifPresent(cap -> cap.increaseChunkPower(amount));
+    public static void increaseClaimPower(LevelChunk chunk, int amount) {
+        getClaimPowerCapability(chunk).ifPresent(cap -> cap.increaseClaimPower(amount));
     }
 
-    public static void decreaseChunkPower(LevelChunk chunk, int amount) {
-        getChunkPowerCapability(chunk).ifPresent(cap -> cap.decreaseChunkPower(amount));
+    public static void decreaseClaimPower(LevelChunk chunk, int amount) {
+        getClaimPowerCapability(chunk).ifPresent(cap -> cap.decreaseClaimPower(amount));
     }
 
     /**
      * Every 2 minutes, increases the power of every claimed chunk in a 3x3 around every online player by 20
      * @param server Server
      */
-    public static void healChunksAroundPlayers(MinecraftServer server) {
+    public static void healClaimsAroundPlayers(MinecraftServer server) {
         for (ServerPlayer player : server.getPlayerList().getPlayers()) {
             var level = player.level();
             ChunkPos playerChunk = new ChunkPos(player.blockPosition());
@@ -52,13 +52,13 @@ public class ChunkPowerUtils {
                     ChunkPos chunkPos = new ChunkPos(playerChunk.x + x, playerChunk.z + z);
                     if (level.hasChunk(chunkPos.x, chunkPos.z)) {
                         LevelChunk chunk = level.getChunk(chunkPos.x, chunkPos.z);
-                        int chunkPower = ChunkPowerUtils.getChunkPower(chunk);
+                        int claimPower = ClaimPowerUtils.getClaimPower(chunk);
 
                         // return if the claim has been destroyed (0 power) or if its past the healing cap (1000)
-                        if (chunkPower <= 0 || chunkPower >= SCConfig.INSTANCE.passiveHeal.chunkPassiveHealCap) return;
+                        if (claimPower <= 0 || claimPower >= SCConfig.INSTANCE.passiveHeal.claimPassiveHealCap) return;
 
-                        ChunkPowerUtils.increaseChunkPower(chunk,
-                                Math.min(SCConfig.INSTANCE.passiveHeal.chunkPassiveHealRate, 1000 - chunkPower));
+                        ClaimPowerUtils.increaseClaimPower(chunk,
+                                Math.min(SCConfig.INSTANCE.passiveHeal.claimPassiveHealRate, 1000 - claimPower));
                     }
                 }
             }
