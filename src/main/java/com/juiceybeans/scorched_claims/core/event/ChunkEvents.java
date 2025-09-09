@@ -2,6 +2,9 @@ package com.juiceybeans.scorched_claims.core.event;
 
 import com.juiceybeans.scorched_claims.core.util.ClaimPowerUtils;
 import com.juiceybeans.scorched_claims.core.util.OPACUtil;
+
+import xaero.pac.common.server.api.OpenPACServerAPI;
+
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -13,7 +16,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.chunk.LevelChunk;
 import net.minecraftforge.event.level.ExplosionEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import xaero.pac.common.server.api.OpenPACServerAPI;
 
 import java.util.UUID;
 

@@ -1,6 +1,7 @@
 package com.juiceybeans.scorched_claims.core.util;
 
 import com.juiceybeans.scorched_claims.SCConfig;
+
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 

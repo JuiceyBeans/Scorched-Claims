@@ -4,20 +4,15 @@ import com.juiceybeans.scorched_claims.core.block.ModBlocks;
 import com.juiceybeans.scorched_claims.core.event.ChunkEvents;
 import com.juiceybeans.scorched_claims.core.item.ModItems;
 import com.juiceybeans.scorched_claims.core.tab.ModTabs;
-
 import com.juiceybeans.scorched_claims.core.util.GlobalTickHandler;
+
 import com.mojang.logging.LogUtils;
-import dev.toma.configuration.Configuration;
-import dev.toma.configuration.config.ConfigHolder;
-import dev.toma.configuration.config.format.ConfigFormats;
 import org.slf4j.Logger;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 

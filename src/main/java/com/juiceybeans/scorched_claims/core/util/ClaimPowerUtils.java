@@ -40,6 +40,7 @@ public class ClaimPowerUtils {
 
     /**
      * Every 2 minutes, increases the power of every claimed chunk in a 3x3 around every online player by 20
+     * 
      * @param server Server
      */
     public static void healClaimsAroundPlayers(MinecraftServer server) {

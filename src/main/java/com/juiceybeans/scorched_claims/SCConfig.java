@@ -6,6 +6,7 @@ import dev.toma.configuration.config.format.ConfigFormats;
 
 @dev.toma.configuration.config.Config(id = Main.MOD_ID)
 public final class SCConfig {
+
     public static SCConfig INSTANCE;
 
     private static final Object LOCK = new Object();
@@ -18,11 +19,11 @@ public final class SCConfig {
         }
     }
 
-
     @Configurable
     public PassiveHealConfigs passiveHeal = new PassiveHealConfigs();
 
     public static class PassiveHealConfigs {
+
         @Configurable
         @Configurable.Synchronized
         @Configurable.DecimalRange(min = 0)
@@ -31,7 +32,8 @@ public final class SCConfig {
 
         @Configurable
         @Configurable.Synchronized
-        @Configurable.Comment(value = "Amount of power healed passively by a chunk. Can be negative to passively damage the claim", localize = true)
+        @Configurable.Comment(value = "Amount of power healed passively by a chunk. Can be negative to passively damage the claim",
+                              localize = true)
         public int claimPassiveHealRate = 20;
 
         @Configurable

@@ -1,15 +1,17 @@
 package com.juiceybeans.scorched_claims.core.util;
 
+import xaero.pac.common.claims.player.api.IPlayerChunkClaimAPI;
+import xaero.pac.common.server.api.OpenPACServerAPI;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.chunk.LevelChunk;
-import xaero.pac.common.claims.player.api.IPlayerChunkClaimAPI;
-import xaero.pac.common.server.api.OpenPACServerAPI;
 
 import java.util.UUID;
 
 public class OPACUtil {
+
     public static OpenPACServerAPI getOpacApi(Level level) {
         return level.isClientSide() || level.getServer() == null ? null : OpenPACServerAPI.get(level.getServer());
     }
