@@ -2,6 +2,7 @@ package com.juiceybeans.scorched_claims.core.block;
 
 import com.juiceybeans.scorched_claims.core.item.ModItems;
 
+import com.juiceybeans.scorched_claims.core.util.OPACUtil;
 import xaero.pac.common.claims.player.api.IPlayerChunkClaimAPI;
 import xaero.pac.common.claims.result.api.ClaimResult;
 import xaero.pac.common.server.api.OpenPACServerAPI;
@@ -54,9 +55,7 @@ public class ClaimBlock extends Block {
         Component message = Component.translatable("Something went wrong!").withStyle(ChatFormatting.RED);
 
         if (itemStack.is(ModItems.CLAIM_TICKET.get()) || itemStack.is(ModItems.CLAIM_TICKET.get())) {
-            OpenPACServerAPI opacAPI = Minecraft.getInstance().isLocalServer() ?
-                    OpenPACServerAPI.get(Minecraft.getInstance().getSingleplayerServer()) :
-                    OpenPACServerAPI.get(level.getServer());
+            OpenPACServerAPI opacAPI = OPACUtil.getOpacApi(level);
 
             IPlayerConfigAPI playerConfig = opacAPI.getPlayerConfigs().getLoadedConfig(player.getUUID());
             IPlayerConfigAPI usedSubConfig = playerConfig.getUsedServerSubConfig();

@@ -112,6 +112,9 @@ repositories {
     maven { // AppleSkin
         url "https://maven.ryanliptak.com/"
     }
+    maven { // Configuration
+        url "https://api.repsy.io/mvn/toma/public/"
+    }
     mavenLocal()
 }
 
@@ -123,6 +126,7 @@ dependencies {
     modImplementation("curse.maven:open-parties-and-claims-636608:${opac_version}")
     modImplementation("curse.maven:xaeros-minimap-263420:${xaero_minimap_version}")
     modImplementation("curse.maven:xaeros-world-map-317780:${xaero_world_map_version}")
+    modImplementation("dev.toma.configuration:configuration-${minecraft_version}:${configuration_version}-forge")
 
     modRuntimeOnly("dev.emi:emi-forge:${emi_version}+${minecraft_version}")
     modRuntimeOnly("maven.modrinth:jade:${jade_version}+forge")

@@ -1,40 +1,52 @@
 package com.juiceybeans.scorched_claims.core.event;
 
 import com.juiceybeans.scorched_claims.core.util.ChunkPowerUtils;
-
-import xaero.pac.common.server.api.OpenPACServerAPI;
-
-import net.minecraft.client.Minecraft;
+import com.juiceybeans.scorched_claims.core.util.OPACUtil;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.PrimedTnt;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.chunk.LevelChunk;
 import net.minecraftforge.event.level.ExplosionEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import xaero.pac.common.server.api.OpenPACServerAPI;
+
+import java.util.UUID;
 
 public class ChunkEvents {
 
     @SubscribeEvent
     public static void onExplosion(ExplosionEvent event) {
-        var pos = BlockPos.containing(event.getExplosion().getPosition());
-        var level = event.getLevel();
+        Level level = event.getLevel();
 
-        OpenPACServerAPI opacAPI = Minecraft.getInstance().isLocalServer() ?
-                OpenPACServerAPI.get(Minecraft.getInstance().getSingleplayerServer()) :
-                OpenPACServerAPI.get(level.getServer());
+        if (level.isClientSide()) return;
 
-        var chunkOwner = opacAPI.getServerClaimsManager().get(level.dimension().registry(), pos).getPlayerId();
+        BlockPos pos = BlockPos.containing(event.getExplosion().getPosition());
+        OpenPACServerAPI opacAPI = OPACUtil.getOpacApi(level);
+
+        if (opacAPI == null) return;
+
+        UUID chunkOwner = OPACUtil.getChunkOwner(level, pos);
+
+        // return if chunk does not have an owner, or if owner is not online
         if (chunkOwner == null || level.getServer().getPlayerList().getPlayer(chunkOwner) == null) return;
 
-        var chunk = level.getChunkAt(pos);
+        LevelChunk chunk = level.getChunkAt(pos);
         int power = ChunkPowerUtils.getChunkPower(chunk);
-        var exploder = event.getExplosion().getExploder();
-        var reduceBy = exploder instanceof PrimedTnt ? 100 : 50;
+        Entity exploder = event.getExplosion().getExploder();
+        int reduceBy = exploder instanceof PrimedTnt ? 100 : 50;
 
         if (power > 0) {
             ChunkPowerUtils.decreaseChunkPower(chunk, reduceBy);
         } else {
             level.playSound(null, pos, SoundEvents.WITHER_DEATH, SoundSource.BLOCKS, 1.0f, 1.0f);
+            level.getServer().sendSystemMessage(Component.translatable("chat.scorched_claims.claim_destroyed")
+                    .withStyle(ChatFormatting.RED));
+
             opacAPI.getServerClaimsManager().unclaim(
                     level.dimension().registry(), chunk.getPos().x, chunk.getPos().z);
         }

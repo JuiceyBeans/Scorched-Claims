@@ -33,15 +33,11 @@ public class ChunkPowerProvider implements ICapabilitySerializable<CompoundTag> 
         return ModCapabilities.CHUNK_POWER_CAPABILITY.orEmpty(cap, optionalData);
     }
 
-    void invalidate() {
-        this.optionalData.invalidate();
-    }
-
     @Override
     public CompoundTag serializeNBT() {
         CompoundTag tag = new CompoundTag();
         tag.putInt(NBT_KEY_CHUNK_POWER, backend.getChunkPower());
-        Main.LOGGER.debug("Serializing chunk power {}", backend.getChunkPower());
+        Main.LOGGER.info("Serializing chunk power {}", backend.getChunkPower());
         return tag;
     }
 
@@ -50,9 +46,9 @@ public class ChunkPowerProvider implements ICapabilitySerializable<CompoundTag> 
         if (nbt.contains(NBT_KEY_CHUNK_POWER)) {
             int power = nbt.getInt(NBT_KEY_CHUNK_POWER);
             backend.setChunkPower(power);
-            Main.LOGGER.debug("Deserializing chunk power {}", power);
+            Main.LOGGER.info("Deserializing chunk power {}", power);
         } else {
-            Main.LOGGER.debug("No chunk power key found");
+            Main.LOGGER.info("No chunk power key found");
         }
     }
 }

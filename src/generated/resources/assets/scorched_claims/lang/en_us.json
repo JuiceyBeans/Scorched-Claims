@@ -1,7 +1,8 @@
 {
   "block.scorched_claims.claim_block": "Claim Block",
+  "chat.scorched_claims.claim_destroyed": "Chunk at %s was destroyed!",
   "chat.scorched_claims.debug_cat.check_power": "%s: Power is %s",
-  "chat.scorched_claims.debug_cat.decrease_power": "%s:Decreased power, current power is %s",
+  "chat.scorched_claims.debug_cat.decrease_power": "%s: Decreased power, current power is %s",
   "chat.scorched_claims.debug_cat.increase_power": "%s: Increased power, current power is %s",
   "chat.scorched_claims.debug_cat.switch": "Mode: %s",
   "chat.scorched_claims.explosion_notification": "Explosion of power %s took place in chunk %s",
