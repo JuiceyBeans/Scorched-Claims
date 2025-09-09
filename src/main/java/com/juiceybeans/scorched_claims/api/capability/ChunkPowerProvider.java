@@ -3,6 +3,10 @@ package com.juiceybeans.scorched_claims.api.capability;
 import com.juiceybeans.scorched_claims.Main;
 import com.juiceybeans.scorched_claims.api.IChunkPower;
 import com.juiceybeans.scorched_claims.core.impl.ChunkPowerImpl;
+
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
@@ -10,10 +14,9 @@ import net.minecraft.world.level.chunk.LevelChunk;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import net.minecraftforge.common.util.LazyOptional;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 public class ChunkPowerProvider implements ICapabilitySerializable<CompoundTag> {
+
     public static final ResourceLocation IDENTIFIER = Main.id("chunk_power");
     public static final String NBT_KEY_CHUNK_POWER = "chunk_power";
 

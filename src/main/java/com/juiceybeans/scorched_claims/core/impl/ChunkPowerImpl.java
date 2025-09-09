@@ -1,9 +1,11 @@
 package com.juiceybeans.scorched_claims.core.impl;
 
 import com.juiceybeans.scorched_claims.api.IChunkPower;
+
 import net.minecraft.world.level.chunk.LevelChunk;
 
 public class ChunkPowerImpl implements IChunkPower {
+
     private final LevelChunk chunk;
     private int power = 1000;
 

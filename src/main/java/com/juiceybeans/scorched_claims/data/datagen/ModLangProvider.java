@@ -42,6 +42,5 @@ public abstract class ModLangProvider extends LanguageProvider {
         add("chat.scorched_claims.debug_cat.increase_power", "%s: Increased power, current power is %s");
         add("chat.scorched_claims.debug_cat.decrease_power", "%s: Decreased power, current power is %s");
         add("chat.scorched_claims.explosion_notification", "Explosion of power %s took place in chunk %s");
-
     }
 }
