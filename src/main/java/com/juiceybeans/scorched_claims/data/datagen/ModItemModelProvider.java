@@ -26,12 +26,12 @@ public class ModItemModelProvider extends ItemModelProvider {
     private ItemModelBuilder simpleItem(RegistryObject<Item> itemRegistryObject) {
         return withExistingParent(itemRegistryObject.getId().getPath(),
                 new ResourceLocation("item/generated")).texture("layer0",
-                        new ResourceLocation(Main.MOD_ID, "item/" + itemRegistryObject.getId().getPath()));
+                        Main.id("item/" + itemRegistryObject.getId().getPath()));
     }
 
     private ItemModelBuilder handheldItem(RegistryObject<Item> itemRegistryObject) {
         return withExistingParent(itemRegistryObject.getId().getPath(),
                 new ResourceLocation("item/handheld")).texture("layer0",
-                        new ResourceLocation(Main.MOD_ID, "item/" + itemRegistryObject.getId().getPath()));
+                        Main.id("item/" + itemRegistryObject.getId().getPath()));
     }
 }

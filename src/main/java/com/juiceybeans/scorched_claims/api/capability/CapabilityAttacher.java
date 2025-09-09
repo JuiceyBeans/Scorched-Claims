@@ -10,7 +10,7 @@ import net.minecraftforge.fml.common.Mod;
 public class CapabilityAttacher {
     @SubscribeEvent
     public static void attachCapabilities(AttachCapabilitiesEvent<LevelChunk> event) {
-        event.addCapability(ChunkPowerProvider.IDENTIFIER, new ChunkPowerProvider());
+        event.addCapability(ChunkPowerProvider.IDENTIFIER, new ChunkPowerProvider(event.getObject()));
         Main.LOGGER.debug("Attached capability to chunk {}", event.getObject().getPos());
     }
 }

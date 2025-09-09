@@ -6,6 +6,7 @@ import com.juiceybeans.scorched_claims.core.impl.ChunkPowerImpl;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.chunk.LevelChunk;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import net.minecraftforge.common.util.LazyOptional;
@@ -16,8 +17,13 @@ public class ChunkPowerProvider implements ICapabilitySerializable<CompoundTag> 
     public static final ResourceLocation IDENTIFIER = Main.id("chunk_power");
     public static final String NBT_KEY_CHUNK_POWER = "chunk_power";
 
-    private final IChunkPower backend = new ChunkPowerImpl();;
-    private final LazyOptional<IChunkPower> optionalData = LazyOptional.of(() -> backend);
+    private final IChunkPower backend;
+    private final LazyOptional<IChunkPower> optionalData;
+
+    public ChunkPowerProvider(LevelChunk chunk) {
+        this.backend = new ChunkPowerImpl(chunk);
+        this.optionalData = LazyOptional.of(() -> this.backend);
+    }
 
     @Override
     public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction direction) {

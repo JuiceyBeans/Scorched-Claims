@@ -38,8 +38,10 @@ public abstract class ModLangProvider extends LanguageProvider {
     private void addLang() {
         add("itemGroup.scorched_claims.scorched_claims_tab", "Scorched Claims");
         add("chat.scorched_claims.debug_cat.switch", "Mode: %s");
-        add("chat.scorched_claims.debug_cat.check_power", "[DEBUG] Power of chunk %s is %s");
-        add("chat.scorched_claims.debug_cat.increase_power", "[DEBUG] Increased power of chunk %s by 10, current power is %s");
-        add("chat.scorched_claims.debug_cat.decrease_power", "[DEBUG] Decreased power of chunk %s by 10, current power is %s");
+        add("chat.scorched_claims.debug_cat.check_power", "%s: Power is %s");
+        add("chat.scorched_claims.debug_cat.increase_power", "%s: Increased power, current power is %s");
+        add("chat.scorched_claims.debug_cat.decrease_power", "%s: Decreased power, current power is %s");
+        add("chat.scorched_claims.explosion_notification", "Explosion of power %s took place in chunk %s");
+
     }
 }
