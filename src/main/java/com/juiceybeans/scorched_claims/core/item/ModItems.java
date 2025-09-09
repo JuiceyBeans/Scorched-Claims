@@ -17,7 +17,7 @@ public class ModItems {
             new Item.Properties().rarity(Rarity.UNCOMMON)));
 
     public static final RegistryObject<Item> DEBUG_CAT = ITEMS.register("debug_cat", () -> new DebugCatItem(
-            new Item.Properties().rarity(Rarity.EPIC)));
+            new Item.Properties().rarity(Rarity.EPIC).stacksTo(1)));
 
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);
