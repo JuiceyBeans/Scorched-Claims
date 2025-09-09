@@ -6,6 +6,11 @@
   "chat.scorched_claims.debug_cat.increase_power": "%s: Increased power, current power is %s",
   "chat.scorched_claims.debug_cat.switch": "Mode: %s",
   "chat.scorched_claims.explosion_notification": "Explosion of power %s took place in chunk %s",
+  "config.scorched_claims.option.chunkPassiveHealCap": "Maximum power upto which a chunk can heal passively (default: 1000)",
+  "config.scorched_claims.option.chunkPassiveHealRate": "Amount of power healed passively by a chunk. Can be negative to passively damage the chunk (default: 20)",
+  "config.scorched_claims.option.chunkPassiveHealTime": "Time taken for a chunk to passively heal power (in seconds) (default: 120)",
+  "config.scorched_claims.option.passiveHeal": "Chunk Passive Healing",
+  "config.screen.scorched_claims": "Scorched Claims Config",
   "item.scorched_claims.claim_ticket": "Claim Ticket",
   "item.scorched_claims.debug_cat": "Debug Cat",
   "itemGroup.scorched_claims.scorched_claims_tab": "Scorched Claims"

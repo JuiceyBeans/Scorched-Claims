@@ -46,5 +46,9 @@ public abstract class ModLangProvider extends LanguageProvider {
         add("chat.scorched_claims.claim_destroyed", "Chunk at %s was destroyed!");
 
         add("config.screen.scorched_claims", "Scorched Claims Config");
+        add("config.scorched_claims.option.passiveHeal", "Chunk Passive Healing");
+        add("config.scorched_claims.option.chunkPassiveHealTime", "Time taken for a chunk to passively heal power (in seconds) (default: 120)");
+        add("config.scorched_claims.option.chunkPassiveHealRate", "Amount of power healed passively by a chunk. Can be negative to passively damage the chunk (default: 20)");
+        add("config.scorched_claims.option.chunkPassiveHealCap", "Maximum power upto which a chunk can heal passively (default: 1000)");
     }
 }
