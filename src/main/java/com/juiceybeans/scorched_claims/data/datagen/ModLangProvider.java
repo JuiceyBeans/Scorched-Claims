@@ -46,6 +46,9 @@ public abstract class ModLangProvider extends LanguageProvider {
         add("chat.scorched_claims.claim_destroyed", "Chunk at %s was destroyed!");
 
         add("config.screen.scorched_claims", "Scorched Claims Config");
+        add("config.scorched_claims.option.playerDeathDamage", "Player Death Damage");
+        add("config.scorched_claims.option.playerDeathDamage.comment.0",
+                "Damage dealt to a claim when a team member dies in it");
         add("config.scorched_claims.option.passiveHeal", "Chunk Passive Healing");
         add("config.scorched_claims.option.claimPassiveHealTime", "Passive Heal Time");
         add("config.scorched_claims.option.claimPassiveHealTime.comment.0",

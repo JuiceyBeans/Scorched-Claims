@@ -4,9 +4,16 @@ import com.juiceybeans.scorched_claims.SCConfig;
 import com.juiceybeans.scorched_claims.api.IClaimPower;
 import com.juiceybeans.scorched_claims.api.capability.ModCapabilities;
 
+import dev.ftb.mods.ftbchunks.api.ClaimedChunk;
+
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.level.ChunkPos;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.chunk.LevelChunk;
 import net.minecraftforge.common.util.LazyOptional;
 
@@ -64,5 +71,14 @@ public class ClaimPowerUtils {
                 }
             }
         }
+    }
+
+    public static void destroyClaim(Level level, ClaimedChunk claim) {
+        level.playSound(null, claim.getPos().getChunkPos().getWorldPosition(), SoundEvents.WITHER_DEATH,
+                SoundSource.BLOCKS, 1.0f, 1.0f);
+        level.getServer().sendSystemMessage(Component.translatable("chat.scorched_claims.claim_destroyed")
+                .withStyle(ChatFormatting.RED));
+
+        claim.unclaim(null, true);
     }
 }

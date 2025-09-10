@@ -13,6 +13,8 @@
   "config.scorched_claims.option.claimPassiveHealTime": "Passive Heal Time",
   "config.scorched_claims.option.claimPassiveHealTime.comment.0": "Time taken for a chunk to passively heal power (in seconds)",
   "config.scorched_claims.option.passiveHeal": "Chunk Passive Healing",
+  "config.scorched_claims.option.playerDeathDamage": "Player Death Damage",
+  "config.scorched_claims.option.playerDeathDamage.comment.0": "Damage dealt to a claim when a team member dies in it",
   "config.screen.scorched_claims": "Scorched Claims Config",
   "item.scorched_claims.claim_ticket": "Claim Ticket",
   "item.scorched_claims.debug_cat": "Debug Cat",

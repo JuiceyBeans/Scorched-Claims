@@ -1,15 +1,14 @@
 package com.juiceybeans.scorched_claims.core.event;
 
 import com.juiceybeans.scorched_claims.core.util.ClaimPowerUtils;
-import com.juiceybeans.scorched_claims.core.util.OPACUtil;
 
-import xaero.pac.common.server.api.OpenPACServerAPI;
+import dev.ftb.mods.ftbchunks.api.ChunkTeamData;
+import dev.ftb.mods.ftbchunks.api.ClaimedChunk;
+import dev.ftb.mods.ftbchunks.api.ClaimedChunkManager;
+import dev.ftb.mods.ftbchunks.api.FTBChunksAPI;
+import dev.ftb.mods.ftblibrary.math.ChunkDimPos;
 
-import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.chat.Component;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.PrimedTnt;
 import net.minecraft.world.level.Level;
@@ -17,6 +16,7 @@ import net.minecraft.world.level.chunk.LevelChunk;
 import net.minecraftforge.event.level.ExplosionEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
+import java.util.Set;
 import java.util.UUID;
 
 public class ChunkEvents {
@@ -27,17 +27,27 @@ public class ChunkEvents {
 
         if (level.isClientSide()) return;
 
-        BlockPos pos = BlockPos.containing(event.getExplosion().getPosition());
-        OpenPACServerAPI opacAPI = OPACUtil.getOpacApi(level);
+        BlockPos blockPos = BlockPos.containing(event.getExplosion().getPosition());
+        ChunkDimPos chunkDimPos = new ChunkDimPos(level, blockPos);
+        ClaimedChunkManager manager = FTBChunksAPI.api().getManager();
+        ClaimedChunk claim = manager.getChunk(chunkDimPos);
 
-        if (opacAPI == null) return;
+        ChunkTeamData teamData = claim != null ? claim.getTeamData() : null;
+        if (teamData == null) return; // return if chunk is unclaimed
 
-        UUID chunkOwner = OPACUtil.getChunkOwner(level, pos);
+        Set<UUID> teamId = teamData.getTeam().getMembers();
+        int onlinePlayerCount = 0;
+        for (var pId : teamId) {
+            if (level.getServer().getPlayerList().getPlayer(pId) != null) {
+                onlinePlayerCount++; // increment if players are online
+                break;
+            }
+        }
 
-        // return if chunk does not have an owner, or if owner is not online
-        if (chunkOwner == null || level.getServer().getPlayerList().getPlayer(chunkOwner) == null) return;
+        // return if nobody from the team is online
+        if (onlinePlayerCount == 0) return;
 
-        LevelChunk chunk = level.getChunkAt(pos);
+        LevelChunk chunk = level.getChunkAt(blockPos);
         int power = ClaimPowerUtils.getClaimPower(chunk);
         Entity exploder = event.getExplosion().getExploder();
         int reduceBy = exploder instanceof PrimedTnt ? 100 : 50;
@@ -45,12 +55,7 @@ public class ChunkEvents {
         if (power > 0) {
             ClaimPowerUtils.decreaseClaimPower(chunk, reduceBy);
         } else {
-            level.playSound(null, pos, SoundEvents.WITHER_DEATH, SoundSource.BLOCKS, 1.0f, 1.0f);
-            level.getServer().sendSystemMessage(Component.translatable("chat.scorched_claims.claim_destroyed")
-                    .withStyle(ChatFormatting.RED));
-
-            opacAPI.getServerClaimsManager().unclaim(
-                    level.dimension().registry(), chunk.getPos().x, chunk.getPos().z);
+            ClaimPowerUtils.destroyClaim(level, claim);
         }
     }
 }

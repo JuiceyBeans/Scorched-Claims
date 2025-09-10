@@ -106,6 +106,9 @@ repositories {
     maven { // Modrinth
         url "https://api.modrinth.com/maven"
     }
+    maven { // FTB
+        url "https://maven.ftb.dev/releases"
+    }
     maven { // EMI
         url "https://maven.terraformersmc.com"
     }
@@ -123,14 +126,15 @@ apply from: "$rootDir/gradle/scripts/spotless.gradle"
 dependencies {
     compileOnly("org.jetbrains:annotations:26.0.1")
 
-    modImplementation("curse.maven:open-parties-and-claims-636608:${opac_version}")
-    modImplementation("curse.maven:xaeros-minimap-263420:${xaero_minimap_version}")
-    modImplementation("curse.maven:xaeros-world-map-317780:${xaero_world_map_version}")
     modImplementation("dev.toma.configuration:configuration-${minecraft_version}:${configuration_version}-forge")
+    modImplementation("dev.ftb.mods:ftb-chunks-forge:${ftb_chunks_version}")
+    modImplementation("dev.ftb.mods:ftb-teams-forge:${ftb_teams_version}")
+    modImplementation("dev.ftb.mods:ftb-library-forge:${ftb_library_version}")
 
     modRuntimeOnly("dev.emi:emi-forge:${emi_version}+${minecraft_version}")
     modRuntimeOnly("maven.modrinth:jade:${jade_version}+forge")
     modRuntimeOnly("squeek.appleskin:appleskin-forge:mc${minecraft_version}-${appleskin_version}")
+    modRuntimeOnly("curse.maven:architectury-api-419699:5137938")
 
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 
