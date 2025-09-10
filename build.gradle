@@ -130,11 +130,11 @@ dependencies {
     modImplementation("dev.ftb.mods:ftb-chunks-forge:${ftb_chunks_version}")
     modImplementation("dev.ftb.mods:ftb-teams-forge:${ftb_teams_version}")
     modImplementation("dev.ftb.mods:ftb-library-forge:${ftb_library_version}")
+    modImplementation("curse.maven:architectury-api-419699:5137938")
 
     modRuntimeOnly("dev.emi:emi-forge:${emi_version}+${minecraft_version}")
     modRuntimeOnly("maven.modrinth:jade:${jade_version}+forge")
     modRuntimeOnly("squeek.appleskin:appleskin-forge:mc${minecraft_version}-${appleskin_version}")
-    modRuntimeOnly("curse.maven:architectury-api-419699:5137938")
 
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 

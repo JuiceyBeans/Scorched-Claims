@@ -7,6 +7,7 @@ import com.juiceybeans.scorched_claims.core.tab.ModTabs;
 import com.juiceybeans.scorched_claims.core.util.GlobalTickHandler;
 
 import com.mojang.logging.LogUtils;
+import dev.ftb.mods.ftbchunks.api.event.ClaimedChunkEvent;
 import org.slf4j.Logger;
 
 import net.minecraft.resources.ResourceLocation;
@@ -39,6 +40,10 @@ public class Main {
     private void commonSetup(final FMLCommonSetupEvent event) {
         MinecraftForge.EVENT_BUS.register(GlobalTickHandler.class);
         MinecraftForge.EVENT_BUS.register(ChunkEvents.class);
+
+        event.enqueueWork(() -> {
+            ClaimedChunkEvent.AFTER_CLAIM.register(ChunkEvents::onChunkClaimed);
+        });
     }
 
     public static ResourceLocation id(String path) {

@@ -7,7 +7,7 @@ import net.minecraft.world.level.chunk.LevelChunk;
 public class ClaimPowerImpl implements IClaimPower {
 
     private final LevelChunk chunk;
-    private int power = 1000;
+    private int power = 0;
 
     public ClaimPowerImpl(LevelChunk chunk) {
         this.chunk = chunk;

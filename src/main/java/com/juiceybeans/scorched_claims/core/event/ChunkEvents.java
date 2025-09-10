@@ -1,13 +1,12 @@
 package com.juiceybeans.scorched_claims.core.event;
 
+import com.juiceybeans.scorched_claims.SCConfig;
 import com.juiceybeans.scorched_claims.core.util.ClaimPowerUtils;
 
-import dev.ftb.mods.ftbchunks.api.ChunkTeamData;
-import dev.ftb.mods.ftbchunks.api.ClaimedChunk;
-import dev.ftb.mods.ftbchunks.api.ClaimedChunkManager;
-import dev.ftb.mods.ftbchunks.api.FTBChunksAPI;
+import dev.ftb.mods.ftbchunks.api.*;
 import dev.ftb.mods.ftblibrary.math.ChunkDimPos;
 
+import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.PrimedTnt;
@@ -50,12 +49,17 @@ public class ChunkEvents {
         LevelChunk chunk = level.getChunkAt(blockPos);
         int power = ClaimPowerUtils.getClaimPower(chunk);
         Entity exploder = event.getExplosion().getExploder();
-        int reduceBy = exploder instanceof PrimedTnt ? 100 : 50;
+        int reduceBy = exploder instanceof PrimedTnt ? SCConfig.INSTANCE.tntDamage : 50;
 
         if (power > 0) {
             ClaimPowerUtils.decreaseClaimPower(chunk, reduceBy);
         } else {
             ClaimPowerUtils.destroyClaim(level, claim);
         }
+    }
+
+    public static void onChunkClaimed(CommandSourceStack source, ClaimedChunk chunk) {
+        ClaimPowerUtils.setClaimPower(source.getLevel().getChunk(chunk.getPos().getChunkPos().x,
+                chunk.getPos().getChunkPos().z), 1000);
     }
 }

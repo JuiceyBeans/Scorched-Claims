@@ -28,6 +28,12 @@ public final class SCConfig {
     @Configurable.Comment(value = "Damage dealt to a claim when a team member dies in it", localize = true)
     public int playerDeathDamage = 100;
 
+    @Configurable
+    @Configurable.Synchronized
+    @Configurable.DecimalRange(min = 0)
+    @Configurable.Comment(value = "Damage dealt to a claim when TNT explodes in it", localize = true)
+    public int tntDamage = 100;
+
     public static class PassiveHealConfigs {
 
         @Configurable

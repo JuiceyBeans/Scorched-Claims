@@ -79,6 +79,6 @@ public class ClaimPowerUtils {
         level.getServer().sendSystemMessage(Component.translatable("chat.scorched_claims.claim_destroyed")
                 .withStyle(ChatFormatting.RED));
 
-        claim.unclaim(null, true);
+        claim.unclaim(null, true); // todo figure this out. currently NPEs
     }
 }
