@@ -63,7 +63,7 @@ public class ClaimPowerUtils {
                         int claimPower = ClaimPowerUtils.getClaimPower(chunk);
 
                         // return if the claim has been destroyed (0 power) or if its past the healing cap (1000)
-                        if (claimPower <= 0 || claimPower >= SCConfig.INSTANCE.passiveHeal.claimPassiveHealCap) return;
+                        if (claimPower <= 0 || claimPower >= SCConfig.INSTANCE.passiveHeal.claimPassiveHealCap) continue;
 
                         ClaimPowerUtils.increaseClaimPower(chunk,
                                 Math.min(SCConfig.INSTANCE.passiveHeal.claimPassiveHealRate, 1000 - claimPower));
