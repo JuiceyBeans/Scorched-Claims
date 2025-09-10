@@ -1,16 +1,13 @@
-package com.juiceybeans.scorched_claims.block;
+package com.juiceybeans.scorched_claims.core.block;
 
-import com.juiceybeans.scorched_claims.item.ModItems;
+import com.juiceybeans.scorched_claims.core.item.ModItems;
 
-import xaero.pac.common.claims.player.api.IPlayerChunkClaimAPI;
-import xaero.pac.common.claims.result.api.ClaimResult;
-import xaero.pac.common.server.api.OpenPACServerAPI;
-import xaero.pac.common.server.player.config.api.IPlayerConfigAPI;
+import dev.ftb.mods.ftbchunks.api.FTBChunksAPI;
 
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -54,30 +51,15 @@ public class ClaimBlock extends Block {
         Component message = Component.translatable("Something went wrong!").withStyle(ChatFormatting.RED);
 
         if (itemStack.is(ModItems.CLAIM_TICKET.get()) || itemStack.is(ModItems.CLAIM_TICKET.get())) {
-            OpenPACServerAPI opacAPI = Minecraft.getInstance().isLocalServer() ?
-                    OpenPACServerAPI.get(Minecraft.getInstance().getSingleplayerServer()) :
-                    OpenPACServerAPI.get(level.getServer());
-
-            IPlayerConfigAPI playerConfig = opacAPI.getPlayerConfigs().getLoadedConfig(player.getUUID());
-            IPlayerConfigAPI usedSubConfig = playerConfig.getUsedServerSubConfig();
-            int subConfigIndex = usedSubConfig.getSubIndex();
-
-            ChunkPos chunkPos = new ChunkPos(pos);
-
-            ClaimResult<IPlayerChunkClaimAPI> claim = opacAPI.getServerClaimsManager().tryToClaim(
-                    level.dimension().location(),
-                    player.getUUID(),
-                    subConfigIndex, // todo figure out what the hell subconfig index means
-                    chunkPos.x, chunkPos.z,
-                    chunkPos.x, chunkPos.z,
+            var claim = FTBChunksAPI.api().claimAsPlayer((ServerPlayer) player, level.dimension(), new ChunkPos(pos),
                     true);
 
-            if (claim.getResultType().success) {
+            if (claim.isSuccess()) {
                 itemStack.shrink(1);
                 result = InteractionResult.SUCCESS;
             }
 
-            message = claim.getResultType().message;
+            message = claim.getMessage();
         }
 
         if (level.isClientSide) {

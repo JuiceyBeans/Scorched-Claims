@@ -1,4 +1,4 @@
-package com.juiceybeans.scorched_claims.item;
+package com.juiceybeans.scorched_claims.core.item;
 
 import com.juiceybeans.scorched_claims.Main;
 
@@ -15,6 +15,9 @@ public class ModItems {
 
     public static final RegistryObject<Item> CLAIM_TICKET = ITEMS.register("claim_ticket", () -> new Item(
             new Item.Properties().rarity(Rarity.UNCOMMON)));
+
+    public static final RegistryObject<Item> DEBUG_CAT = ITEMS.register("debug_cat", () -> new DebugCatItem(
+            new Item.Properties().rarity(Rarity.EPIC).stacksTo(1)));
 
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);

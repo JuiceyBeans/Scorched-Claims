@@ -1,5 +1,22 @@
 {
   "block.scorched_claims.claim_block": "Claim Block",
+  "chat.scorched_claims.claim_destroyed": "Chunk at %s was destroyed!",
+  "chat.scorched_claims.debug_cat.check_power": "%s: Power is %s",
+  "chat.scorched_claims.debug_cat.decrease_power": "%s: Decreased power, current power is %s",
+  "chat.scorched_claims.debug_cat.increase_power": "%s: Increased power, current power is %s",
+  "chat.scorched_claims.debug_cat.switch": "Mode: %s",
+  "chat.scorched_claims.explosion_notification": "Explosion of power %s took place in chunk %s",
+  "config.scorched_claims.option.claimPassiveHealCap": "Passive Heal Cap",
+  "config.scorched_claims.option.claimPassiveHealCap.comment.0": "Maximum power upto which a chunk can heal passively",
+  "config.scorched_claims.option.claimPassiveHealRate": "Passive Heal Rate",
+  "config.scorched_claims.option.claimPassiveHealRate.comment.0": "Amount of power healed passively by a chunk. Can be negative to passively damage the chunk",
+  "config.scorched_claims.option.claimPassiveHealTime": "Passive Heal Time",
+  "config.scorched_claims.option.claimPassiveHealTime.comment.0": "Time taken for a chunk to passively heal power (in seconds)",
+  "config.scorched_claims.option.passiveHeal": "Chunk Passive Healing",
+  "config.scorched_claims.option.playerDeathDamage": "Player Death Damage",
+  "config.scorched_claims.option.playerDeathDamage.comment.0": "Damage dealt to a claim when a team member dies in it",
+  "config.screen.scorched_claims": "Scorched Claims Config",
   "item.scorched_claims.claim_ticket": "Claim Ticket",
+  "item.scorched_claims.debug_cat": "Debug Cat",
   "itemGroup.scorched_claims.scorched_claims_tab": "Scorched Claims"
 }

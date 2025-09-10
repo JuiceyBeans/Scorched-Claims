@@ -1,8 +1,7 @@
-package com.juiceybeans.scorched_claims.core;
+package com.juiceybeans.scorched_claims.core.block;
 
 import com.juiceybeans.scorched_claims.Main;
-import com.juiceybeans.scorched_claims.block.ClaimBlock;
-import com.juiceybeans.scorched_claims.item.ModItems;
+import com.juiceybeans.scorched_claims.core.item.ModItems;
 
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;

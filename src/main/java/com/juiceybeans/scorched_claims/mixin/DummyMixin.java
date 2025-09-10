@@ -1,4 +1,4 @@
-package com.juiceybeans.scorched_claims.core.mixin;
+package com.juiceybeans.scorched_claims.mixin;
 
 import org.spongepowered.asm.mixin.Mixin;
 
