@@ -1,7 +1,8 @@
 package com.juiceybeans.scorched_claims;
 
 import com.juiceybeans.scorched_claims.core.block.ModBlocks;
-import com.juiceybeans.scorched_claims.core.event.ChunkEvents;
+import com.juiceybeans.scorched_claims.core.event.SCChunkEvents;
+import com.juiceybeans.scorched_claims.core.event.SCPlayerEvents;
 import com.juiceybeans.scorched_claims.core.item.ModItems;
 import com.juiceybeans.scorched_claims.core.tab.ModTabs;
 import com.juiceybeans.scorched_claims.core.util.GlobalTickHandler;
@@ -39,10 +40,11 @@ public class Main {
 
     private void commonSetup(final FMLCommonSetupEvent event) {
         MinecraftForge.EVENT_BUS.register(GlobalTickHandler.class);
-        MinecraftForge.EVENT_BUS.register(ChunkEvents.class);
+        MinecraftForge.EVENT_BUS.register(SCChunkEvents.class);
+        MinecraftForge.EVENT_BUS.register(SCPlayerEvents.class);
 
         event.enqueueWork(() -> {
-            ClaimedChunkEvent.AFTER_CLAIM.register(ChunkEvents::onChunkClaimed);
+            ClaimedChunkEvent.AFTER_CLAIM.register(SCChunkEvents::onChunkClaimed);
         });
     }
 

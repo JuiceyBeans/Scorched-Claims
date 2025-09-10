@@ -2,23 +2,28 @@ package com.juiceybeans.scorched_claims.core.event;
 
 import com.juiceybeans.scorched_claims.SCConfig;
 import com.juiceybeans.scorched_claims.core.util.ClaimPowerUtils;
+import com.juiceybeans.scorched_claims.core.util.FTBChunksUtils;
 
 import dev.ftb.mods.ftbchunks.api.*;
 import dev.ftb.mods.ftblibrary.math.ChunkDimPos;
 
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.PrimedTnt;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.chunk.LevelChunk;
+import net.minecraftforge.event.entity.EntityEvent;
 import net.minecraftforge.event.level.ExplosionEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 import java.util.Set;
 import java.util.UUID;
 
-public class ChunkEvents {
+public class SCChunkEvents {
 
     @SubscribeEvent
     public static void onExplosion(ExplosionEvent event) {
@@ -55,6 +60,22 @@ public class ChunkEvents {
             ClaimPowerUtils.decreaseClaimPower(chunk, reduceBy);
         } else {
             ClaimPowerUtils.destroyClaim(level, claim);
+        }
+    }
+
+    @SubscribeEvent
+    public static void onChunkEntered(EntityEvent.EnteringSection event) {
+        if (!(event.getEntity() instanceof Player player) || player.level().isClientSide() ||
+                FTBChunksUtils.isInTeam(player.getUUID())) {
+            return;
+        }
+
+        var newChunkTeamId = FTBChunksUtils.getChunkInfo(player.level(), event.getNewPos().chunk()).getTeamData()
+                .getTeam().getId();
+        var playerTeamId = FTBChunksUtils.getTeamByPlayer(player.getUUID());
+
+        if (newChunkTeamId != playerTeamId) {
+            player.addEffect(new MobEffectInstance(MobEffects.DIG_SLOWDOWN, 60, 1, false, false));
         }
     }
 
